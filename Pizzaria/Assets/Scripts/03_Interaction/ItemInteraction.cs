@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemInteraction : MonoBehaviour
-{
+public class ItemInteraction : MonoBehaviour {
+    public static ItemInteraction instance;
+
+    public bool canPickUp = true;
+
     public float throwForce = 15.0f;
     public float dropForce = 10.0f;
     public float pickUpRange = 1.0f;
@@ -13,11 +16,15 @@ public class ItemInteraction : MonoBehaviour
     Rigidbody heldItemRigidbody;
 
     void Start() {
+        instance = this;
+
         if (holdPosition == null)
             Debug.LogError("Hold position Transform is not set. Please set a Transform for the hold position.");
     }
 
     void Update() {
+        if (!canPickUp) return;
+
         if (Input.GetButtonDown("Fire1")) {
             if (heldItem != null) DropItem();
             else TryToPickUp();

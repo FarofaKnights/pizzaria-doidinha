@@ -8,10 +8,20 @@ public class CameraController : MonoBehaviour {
     public GameObject target;
     public float smoothing = 5f;
 
+
+    GameObject player;
     bool transitioning = false;
 
     void Start() {
         instance = this;
+
+        player = GameObject.Find("Player/Look");
+        
+        if (target == player) {
+            Cursor.lockState = CursorLockMode.Locked;
+        } else {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     void Update() {
@@ -23,6 +33,10 @@ public class CameraController : MonoBehaviour {
         if (transitioning) {
             transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetCamRot, smoothing * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, targetCamPos) < 0.1f) {
+                transitioning = false;
+            }
         } else {
             transform.position = targetCamPos;
             transform.rotation = targetCamRot;
@@ -33,11 +47,12 @@ public class CameraController : MonoBehaviour {
         target = newTarget;
         transitioning = true;
         Cursor.lockState = CursorLockMode.None;
+        ItemInteraction.instance.canPickUp = false;
     }
 
     public void SetToPlayer() {
-        GameObject player = GameObject.Find("Player");
         SetTarget(player);
         Cursor.lockState = CursorLockMode.Locked;
+        ItemInteraction.instance.canPickUp = true;
     }
 }

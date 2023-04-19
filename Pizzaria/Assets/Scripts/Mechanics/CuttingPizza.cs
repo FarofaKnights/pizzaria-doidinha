@@ -18,6 +18,22 @@ public class CuttingPizza : MonoBehaviour
     LineRenderer lineRenderer;
     public GameObject cutPlane;
 
+    public bool currentlyCutting = false;
+
+    public void Comecar() {
+        Debug.Log("Começar");
+        
+        CameraController.instance.SetTarget(gameObject);
+        currentlyCutting = true;
+    }
+
+    public void Comecar(TriggerController controller) {
+        pizza = controller.item;
+        pizzaCollider = pizza.GetComponent<Collider>();
+
+        this.Comecar();
+    }
+
     void Start() {
         cam = Camera.main;
         pizzaCollider = pizza.GetComponent<Collider>();
@@ -25,6 +41,8 @@ public class CuttingPizza : MonoBehaviour
     }
 
     void Update() {
+        if (!currentlyCutting) return;
+
         // draw sphere gizmo
         if (Input.GetMouseButtonDown(0)) {
             selecting = true;
@@ -57,8 +75,6 @@ public class CuttingPizza : MonoBehaviour
             mira2.SetActive(false);
         }
     }
-
-    
 
     Vector3 GetMouseInPizza() {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
