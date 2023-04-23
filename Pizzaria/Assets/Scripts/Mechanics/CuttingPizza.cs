@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CuttingPizza : MonoBehaviour
+public class CuttingPizza : MiniAction
 {
     public Camera cam;
     public LayerMask mask;
@@ -18,30 +18,53 @@ public class CuttingPizza : MonoBehaviour
     LineRenderer lineRenderer;
     public GameObject cutPlane;
 
-    public bool currentlyCutting = false;
-
-    public void Comecar() {
-        Debug.Log("Começar");
+    // OnComecar é chamado quando o mini-game começa
+    public override void OnComecar() {
+        if (miniActionItem != null) {
+            pizza = miniActionItem;
+        }
         
-        CameraController.instance.SetTarget(gameObject);
-        currentlyCutting = true;
-    }
-
-    public void Comecar(TriggerController controller) {
-        pizza = controller.item;
         pizzaCollider = pizza.GetComponent<Collider>();
+/*
+        CombineInstance[] combine = new CombineInstance[pizza.transform.childCount + 1];
+        int i = 0;
+        foreach (Transform child in pizza.transform) {
+            MeshFilter meshFilter = child.GetComponent<MeshFilter>();
+            if (meshFilter != null) {
+                combine[i].mesh = meshFilter.sharedMesh;
+                combine[i].transform = meshFilter.transform.localToWorldMatrix;
+                i++;
+            }
+        }
+    
+        MeshFilter meshFilterPizza = pizza.GetComponent<MeshFilter>();
+        combine[i].mesh = meshFilterPizza.sharedMesh;
+        combine[i].transform = meshFilterPizza.transform.localToWorldMatrix;
 
-        this.Comecar();
+        Mesh mesh = new Mesh();
+        mesh.CombineMeshes(combine);
+        mesh.RecalculateBounds();
+        mesh.RecalculateNormals();
+        mesh.RecalculateTangents();
+
+        pizza.GetComponent<MeshFilter>().mesh = mesh;
+        pizza.GetComponent<MeshRenderer>().material = pizzaMaterial;
+        */
+
+        MeshCombiner.Combine(pizza);
+
+        foreach (Transform child in pizza.transform) {
+            Destroy(child.gameObject);
+        }
     }
 
     void Start() {
         cam = Camera.main;
-        pizzaCollider = pizza.GetComponent<Collider>();
         lineRenderer = GetComponent<LineRenderer>();
     }
 
     void Update() {
-        if (!currentlyCutting) return;
+        if (!isActionHappening) return;
 
         // draw sphere gizmo
         if (Input.GetMouseButtonDown(0)) {
@@ -110,15 +133,48 @@ public class CuttingPizza : MonoBehaviour
         Quaternion orientation = Quaternion.FromToRotation(Vector3.up, cutPlaneNormal);
         
         var all = Physics.OverlapBox(pointInPlane, new Vector3(100, 0.01f, 100), orientation, layerMask);
-        if (all.Length > 0)
-        {
-            foreach (var hit in all)
-            {
+        if (all.Length > 0) {
+            List<GameObject> childs = new List<GameObject>();
+            List<GameObject[]> objects = new List<GameObject[]>();
+            foreach (var hit in all) {
                 MeshFilter f = hit.gameObject.GetComponent<MeshFilter>();
-                if(f != null){
-                    Cutter.Cut(hit.gameObject, pointInPlane, cutPlaneNormal);
+                if(f != null) {
+                    foreach (Transform child in hit.gameObject.transform) {
+                        childs.Add(child.gameObject);
+                    }
+
+                    GameObject[] pieces = Cutter.Cut(hit.gameObject, pointInPlane, cutPlaneNormal);
+                    if (pieces != null) objects.Add(pieces);
                 }
             }
+
+/*
+            GameObject[] sidesParent = new GameObject[2];
+            for (int i = 0; i < 2; i++) {
+                GameObject parent = pizza.transform.parent.gameObject;
+
+                for (int j = 0; j < objects.Count; j++) {
+                    if (objects[j][i].GetComponent<Rigidbody>() != null) {
+                        parent = objects[j][i];
+                    }
+                }
+
+                sidesParent[i] = parent;
+            }
+            foreach (GameObject child in childs) {
+                if (child == sidesParent[0]) continue;
+                if (child == sidesParent[1]) continue;
+
+                Vector3 dirToChild = (child.transform.position - pointInPlane).normalized;
+                float dot = Vector3.Dot(dirToChild, cutPlaneNormal);
+                if (dot < 0) {
+                    child.transform.parent = sidesParent[0].transform;
+                } else {
+                    child.transform.parent = sidesParent[1].transform;
+                }
+            }
+*/
+
         }
     }
 }

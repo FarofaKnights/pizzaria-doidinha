@@ -14,9 +14,9 @@ TagManager:
   - UI
   - Obstacle
   - Cuttable
-  - 
-  - 
-  - 
+  - IngredientHolder
+  - PutIngredients
+  - Pizza
   - 
   - 
   - 

@@ -39,23 +39,30 @@ public class Cutter : MonoBehaviour
 
         //Getting and destroying all original colliders to prevent having multiple colliders
         //of different kinds on one object
-        var originalCols = originalGameObject.GetComponents<Collider>();
-        foreach (var col in originalCols)
-            Destroy(col);
-
+        bool hasCollider = false;
         originalGameObject.GetComponent<MeshFilter>().mesh = finishedLeftMesh;
-        var collider = originalGameObject.AddComponent<MeshCollider>();
-        collider.sharedMesh = finishedLeftMesh;
-        collider.convex = true;
-        
+
+        if(originalGameObject.GetComponents<Collider>().Length > 0){
+            hasCollider = true;
+            var originalCols = originalGameObject.GetComponents<Collider>();
+            foreach (var col in originalCols)
+                Destroy(col);
+            
+            var collider = originalGameObject.AddComponent<MeshCollider>();
+            collider.sharedMesh = finishedLeftMesh;
+            collider.convex = true;
+        }
         Material[] mats = new Material[finishedLeftMesh.subMeshCount];
-        for (int i = 0; i < finishedLeftMesh.subMeshCount; i++)
-		{
-            mats[i] = originalGameObject.GetComponent<MeshRenderer>().material;
+        for (int i = 0; i < finishedLeftMesh.subMeshCount; i++) {
+            if (originalGameObject.GetComponent<MeshRenderer>().materials.Length > i)
+                mats[i] = originalGameObject.GetComponent<MeshRenderer>().materials[i];
+            else
+                mats[i] = originalGameObject.GetComponent<MeshRenderer>().material;
         }
         originalGameObject.GetComponent<MeshRenderer>().materials = mats;
 
         GameObject right = new GameObject();
+        right.transform.parent = originalGameObject.transform.parent;
         right.transform.position = originalGameObject.transform.position + (Vector3.up * .05f);
         right.transform.rotation = originalGameObject.transform.rotation;
         right.transform.localScale = originalGameObject.transform.localScale;
@@ -63,24 +70,34 @@ public class Cutter : MonoBehaviour
         right.layer = originalGameObject.layer;
         
         mats = new Material[finishedRightMesh.subMeshCount];
-        for (int i = 0; i < finishedRightMesh.subMeshCount; i++)
-		{
-            mats[i] = originalGameObject.GetComponent<MeshRenderer>().material;
+        for (int i = 0; i < finishedRightMesh.subMeshCount; i++) {
+            if (originalGameObject.GetComponent<MeshRenderer>().materials.Length > i)
+                mats[i] = originalGameObject.GetComponent<MeshRenderer>().materials[i];
+            else
+                mats[i] = originalGameObject.GetComponent<MeshRenderer>().material;
         }
         right.GetComponent<MeshRenderer>().materials = mats;
         right.AddComponent<MeshFilter>().mesh = finishedRightMesh;
         
-        right.AddComponent<MeshCollider>().sharedMesh = finishedRightMesh;
-        var cols = right.GetComponents<MeshCollider>();
-        foreach (var col in cols)
-        {
-            col.convex = true;
+        if(hasCollider) {
+            right.AddComponent<MeshCollider>().sharedMesh = finishedRightMesh;
+            var cols = right.GetComponents<MeshCollider>();
+            foreach (var col in cols)
+            {
+                col.convex = true;
+            }
+        }
+
+        if (originalGameObject.GetComponent<Rigidbody>() != null){
+            Rigidbody rightRigidbody = right.AddComponent<Rigidbody>();
+            // rightRigidbody.AddRelativeForce(-cutPlane.normal * 10f);
         }
         
-        Rigidbody rightRigidbody = right.AddComponent<Rigidbody>();
+        //originalGameObject.GetComponent<Rigidbody>().AddRelativeForce(cutPlane.normal * 10f);
 
-        originalGameObject.GetComponent<Rigidbody>().AddRelativeForce(cutPlane.normal * 10f);
-        rightRigidbody.AddRelativeForce(-cutPlane.normal * 10f);
+        float distanceToMove = 0.01f;
+        originalGameObject.transform.position += cutPlane.normal * distanceToMove;
+        right.transform.position += -cutPlane.normal * distanceToMove;
         
         isBusy = false;
 
