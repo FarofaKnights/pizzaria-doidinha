@@ -7,13 +7,22 @@ public class IngridientsPizza : MiniAction
     public GameObject pizza;
     Collider pizzaCollider;
 
-    public LayerMask ingredientHolderLayer, pizzaLayer, ingredientPutLayer;
+    public LayerMask ingredientHolderLayer, pizzaLayer, ingredientPutLayer, ingredientLayer;
+    public GameObject ingredientPutPlane;
+
     GameObject inHand = null;
     IngredientHolder inHandHolder = null;
+    Vector3 oldPos;
 
     public override void OnComecar() {
         pizza = miniActionItem;
         pizzaCollider = pizza.GetComponent<Collider>();
+
+        ingredientPutPlane.SetActive(true);
+    }
+
+    public override void OnTerminar() {
+        ingredientPutPlane.SetActive(false);
     }
 
     void Update() {
@@ -26,6 +35,10 @@ public class IngridientsPizza : MiniAction
                 GameObject holder = hit.collider.gameObject;
                 inHandHolder = holder.GetComponent<IngredientHolder>();
                 PutInHand(inHandHolder.Use());
+            } else if (Physics.Raycast(ray, out hit, 100, ingredientLayer)) {
+                GameObject ingredient = hit.collider.gameObject;
+                inHandHolder = null;
+                PutInHand(ingredient);
             }
         }
 
@@ -42,8 +55,11 @@ public class IngridientsPizza : MiniAction
             if (posPizza != Vector3.zero) {
                 PutInPizza(posPizza);
             } else {
-                inHandHolder.Add();
-                Destroy(inHand);
+                if (inHandHolder != null) {
+                    inHandHolder.Add();
+                    Destroy(inHand);
+                } else inHand.transform.position = oldPos;
+
                 inHand = null;
             }
         }
@@ -61,6 +77,8 @@ public class IngridientsPizza : MiniAction
 
     public void PutInHand(GameObject ingrediente) {
         if (ingrediente == null) return;
+        
+        if (inHandHolder == null) oldPos = ingrediente.transform.position;
         
         inHand = ingrediente;
     }

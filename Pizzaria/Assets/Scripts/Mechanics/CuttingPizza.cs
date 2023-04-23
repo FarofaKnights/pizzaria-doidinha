@@ -11,7 +11,8 @@ public class CuttingPizza : MiniAction
     public Material pizzaMaterial;
     public GameObject pizza;
     Collider pizzaCollider;
-    public float radius = 0.5f;
+    Vector3 pizzaInitialPos;
+    public float radius = 0.5f, pizzaHeight = 0.1f;
     public LayerMask layerMask;
 
     bool selecting = false;
@@ -24,32 +25,8 @@ public class CuttingPizza : MiniAction
             pizza = miniActionItem;
         }
         
+        pizzaInitialPos = pizza.transform.position;
         pizzaCollider = pizza.GetComponent<Collider>();
-/*
-        CombineInstance[] combine = new CombineInstance[pizza.transform.childCount + 1];
-        int i = 0;
-        foreach (Transform child in pizza.transform) {
-            MeshFilter meshFilter = child.GetComponent<MeshFilter>();
-            if (meshFilter != null) {
-                combine[i].mesh = meshFilter.sharedMesh;
-                combine[i].transform = meshFilter.transform.localToWorldMatrix;
-                i++;
-            }
-        }
-    
-        MeshFilter meshFilterPizza = pizza.GetComponent<MeshFilter>();
-        combine[i].mesh = meshFilterPizza.sharedMesh;
-        combine[i].transform = meshFilterPizza.transform.localToWorldMatrix;
-
-        Mesh mesh = new Mesh();
-        mesh.CombineMeshes(combine);
-        mesh.RecalculateBounds();
-        mesh.RecalculateNormals();
-        mesh.RecalculateTangents();
-
-        pizza.GetComponent<MeshFilter>().mesh = mesh;
-        pizza.GetComponent<MeshRenderer>().material = pizzaMaterial;
-        */
 
         MeshCombiner.Combine(pizza);
 
@@ -110,14 +87,14 @@ public class CuttingPizza : MiniAction
     }
 
     Vector3 ClosestPointInPizza(Vector3 point) {
-        Vector3 c = pizza.transform.position;
+        Vector3 c = pizzaInitialPos;
         Vector3 p = point;
 
         c.y = p.y = 0;
 
         Vector3 direction = (p - c);
         Vector3 closestPoint = c + direction.normalized * radius;
-        closestPoint.y = pizza.transform.position.y + pizza.transform.localScale.y;
+        closestPoint.y = pizzaInitialPos.y + pizzaHeight;
         return closestPoint;
     }
 

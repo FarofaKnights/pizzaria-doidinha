@@ -8,6 +8,7 @@ public class MiniAction : MonoBehaviour
     protected GameObject miniActionItem = null;
 
     public virtual void OnComecar(){}
+    public virtual void OnTerminar(){}
     
     public void Comecar() {
         Debug.Log("Começar");
@@ -20,6 +21,7 @@ public class MiniAction : MonoBehaviour
 
     public void Terminar() {
         Debug.Log("Terminar");
+        this.OnTerminar();
         CameraController.instance.SetToPlayer();
         isActionHappening = false;
     }
