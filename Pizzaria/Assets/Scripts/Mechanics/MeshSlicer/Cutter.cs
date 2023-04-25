@@ -62,8 +62,9 @@ public class Cutter : MonoBehaviour
         originalGameObject.GetComponent<MeshRenderer>().materials = mats;
 
         GameObject right = new GameObject();
+        right.name = originalGameObject.name;
         right.transform.parent = originalGameObject.transform.parent;
-        right.transform.position = originalGameObject.transform.position + (Vector3.up * .05f);
+        right.transform.position = originalGameObject.transform.position; // + (Vector3.up * .05f);
         right.transform.rotation = originalGameObject.transform.rotation;
         right.transform.localScale = originalGameObject.transform.localScale;
         right.AddComponent<MeshRenderer>();
@@ -96,8 +97,10 @@ public class Cutter : MonoBehaviour
         //originalGameObject.GetComponent<Rigidbody>().AddRelativeForce(cutPlane.normal * 10f);
 
         float distanceToMove = 0.01f;
-        originalGameObject.transform.position += cutPlane.normal * distanceToMove;
-        right.transform.position += -cutPlane.normal * distanceToMove;
+        Vector3 moveDir = cutPlane.normal;
+        moveDir.y = 0;
+        originalGameObject.transform.position += moveDir * distanceToMove;
+        right.transform.position += -moveDir * distanceToMove;
         
         isBusy = false;
 

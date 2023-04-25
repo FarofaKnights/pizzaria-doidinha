@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CuttingPizza : MiniAction
 {
@@ -28,11 +29,28 @@ public class CuttingPizza : MiniAction
         pizzaInitialPos = pizza.transform.position;
         pizzaCollider = pizza.GetComponent<Collider>();
 
-        MeshCombiner.Combine(pizza);
+        // Create parent object for pizza
+        GameObject pizzaParent = Instantiate(pizza);
+        pizzaParent.transform.parent = pizza.transform.parent;
+        pizzaParent.transform.position = pizzaInitialPos;
+        pizzaParent.layer = 0;
 
-        foreach (Transform child in pizza.transform) {
+        //Destroy all children
+        foreach (Transform child in pizzaParent.transform) {
             Destroy(child.gameObject);
         }
+        
+        Destroy(pizzaParent.GetComponent<MeshRenderer>());
+        Destroy(pizzaParent.GetComponent<MeshFilter>());
+
+        Destroy(pizza.GetComponent<Rigidbody>());
+
+        pizza.transform.parent = pizzaParent.transform;
+/*
+        MeshCombiner.Combine(pizza);
+        foreach (Transform child in pizza.transform) {
+            Destroy(child.gameObject);
+        }*/
     }
 
     void Start() {
@@ -98,7 +116,36 @@ public class CuttingPizza : MiniAction
         return closestPoint;
     }
 
-    // Cut cilindrical mesh with plane
+    List<GameObject>[] SepareObjectsInSide(Vector3 pointA, Vector3 pointB, List<GameObject> objects) {
+        List<GameObject>[] sides = new List<GameObject>[2];
+        sides[0] = new List<GameObject>();
+        sides[1] = new List<GameObject>();
+        
+        Vector3 mid = (pointA + pointB) / 2;
+        Debug.DrawLine(pointA, pointB, Color.red, 100);
+
+        foreach (GameObject obj in objects) {
+            Vector3 center = obj.GetComponent<MeshFilter>().mesh.bounds.center;
+            Vector3 pos = obj.transform.position + center;
+
+            Debug.DrawLine(mid, pos, Color.blue, 100);
+
+            if (isLeft(pointA, pointB, pos)) {
+                sides[0].Add(obj);
+            } else {
+                sides[1].Add(obj);
+            }
+        }
+
+        return sides;
+    }
+
+    public bool isLeft(Vector3 a, Vector3 b, Vector3 c){
+        float det = (b.x - a.x)*(c.z - a.z) - (b.z - a.z)*(c.x - a.x);
+        Debug.Log(det);
+        return det > 0;
+    }
+
     public void CutPizza() {
         Vector3 pointA = mira.transform.position;
         Vector3 pointB = mira2.transform.position;
@@ -111,46 +158,36 @@ public class CuttingPizza : MiniAction
         
         var all = Physics.OverlapBox(pointInPlane, new Vector3(100, 0.01f, 100), orientation, layerMask);
         if (all.Length > 0) {
-            List<GameObject> childs = new List<GameObject>();
-            List<GameObject[]> objects = new List<GameObject[]>();
+            List<GameObject[]> pizzaPieces = new List<GameObject[]>();
             foreach (var hit in all) {
                 MeshFilter f = hit.gameObject.GetComponent<MeshFilter>();
                 if(f != null) {
-                    foreach (Transform child in hit.gameObject.transform) {
+                    GameObject[] pieces = Cutter.Cut(hit.gameObject, pointInPlane, cutPlaneNormal);
+                    if (pieces != null && pieces[0].name == "Pizza") {
+                        pizzaPieces.Add(pieces);
+                    }
+                }
+            }
+
+            foreach (GameObject[] pieces in pizzaPieces) {
+                List<GameObject> childs = new List<GameObject>();
+
+                for (int i = 0; i < 2; i++) {
+                    GameObject pizzaPiece = pieces[i];
+                    foreach (Transform child in pizzaPiece.transform) {
                         childs.Add(child.gameObject);
                     }
-
-                    GameObject[] pieces = Cutter.Cut(hit.gameObject, pointInPlane, cutPlaneNormal);
-                    if (pieces != null) objects.Add(pieces);
-                }
-            }
-
-/*
-            GameObject[] sidesParent = new GameObject[2];
-            for (int i = 0; i < 2; i++) {
-                GameObject parent = pizza.transform.parent.gameObject;
-
-                for (int j = 0; j < objects.Count; j++) {
-                    if (objects[j][i].GetComponent<Rigidbody>() != null) {
-                        parent = objects[j][i];
-                    }
                 }
 
-                sidesParent[i] = parent;
-            }
-            foreach (GameObject child in childs) {
-                if (child == sidesParent[0]) continue;
-                if (child == sidesParent[1]) continue;
+                List<GameObject>[] sides = SepareObjectsInSide(pointA, pointB, childs);
+                foreach (GameObject child in sides[0]) {
+                    child.transform.parent = pieces[0].transform;
+                }
 
-                Vector3 dirToChild = (child.transform.position - pointInPlane).normalized;
-                float dot = Vector3.Dot(dirToChild, cutPlaneNormal);
-                if (dot < 0) {
-                    child.transform.parent = sidesParent[0].transform;
-                } else {
-                    child.transform.parent = sidesParent[1].transform;
+                foreach (GameObject child in sides[1]) {
+                    child.transform.parent = pieces[1].transform;
                 }
             }
-*/
 
         }
     }
