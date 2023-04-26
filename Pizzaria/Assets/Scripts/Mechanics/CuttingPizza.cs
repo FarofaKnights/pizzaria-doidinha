@@ -34,6 +34,8 @@ public class CuttingPizza : MiniAction
         pizzaParent.transform.parent = pizza.transform.parent;
         pizzaParent.transform.position = pizzaInitialPos;
         pizzaParent.layer = 0;
+        pizzaParent.name = pizza.name;
+        pizza.name = "PizzaMesh";
 
         //Destroy all children
         foreach (Transform child in pizzaParent.transform) {
@@ -46,7 +48,11 @@ public class CuttingPizza : MiniAction
         Destroy(pizza.GetComponent<Rigidbody>());
 
         pizza.transform.parent = pizzaParent.transform;
-/*
+        pizza.tag = "Untagged";
+
+        pizza = pizzaParent;
+
+        /*
         MeshCombiner.Combine(pizza);
         foreach (Transform child in pizza.transform) {
             Destroy(child.gameObject);
@@ -61,7 +67,6 @@ public class CuttingPizza : MiniAction
     void Update() {
         if (!isActionHappening) return;
 
-        // draw sphere gizmo
         if (Input.GetMouseButtonDown(0)) {
             selecting = true;
 
@@ -91,6 +96,16 @@ public class CuttingPizza : MiniAction
 
             mira.SetActive(false);
             mira2.SetActive(false);
+        }
+
+        if (Input.mousePosition.x == 0 || Input.mousePosition.y == 0 || Input.mousePosition.x >= Screen.width - 1 || Input.mousePosition.y >= Screen.height - 1) {
+            selecting = false;
+            lineRenderer.SetPosition(0, Vector3.zero);
+            lineRenderer.SetPosition(1, Vector3.zero);
+            mira.SetActive(false);
+            mira2.SetActive(false);
+            
+            Terminar();
         }
     }
 
@@ -158,22 +173,27 @@ public class CuttingPizza : MiniAction
         
         var all = Physics.OverlapBox(pointInPlane, new Vector3(100, 0.01f, 100), orientation, layerMask);
         if (all.Length > 0) {
-            List<GameObject[]> pizzaPieces = new List<GameObject[]>();
+            List<CutterReturnPlane> pizzaPieces = new List<CutterReturnPlane>();
             foreach (var hit in all) {
                 MeshFilter f = hit.gameObject.GetComponent<MeshFilter>();
                 if(f != null) {
-                    GameObject[] pieces = Cutter.Cut(hit.gameObject, pointInPlane, cutPlaneNormal);
-                    if (pieces != null && pieces[0].name == "Pizza") {
-                        pizzaPieces.Add(pieces);
+                    CutterReturnPlane res = Cutter.Cut(hit.gameObject, pointInPlane, cutPlaneNormal);
+                    GameObject[] pieces = res.sides;
+                    if (pieces != null && pieces[0].name == "PizzaMesh") {
+                        pizzaPieces.Add(res);
                     }
                 }
             }
 
-            foreach (GameObject[] pieces in pizzaPieces) {
+            foreach (CutterReturnPlane res in pizzaPieces) {
+                GameObject[] pieces = res.sides;
+                Plane cutPlane = res.plane;
+
                 List<GameObject> childs = new List<GameObject>();
 
                 for (int i = 0; i < 2; i++) {
                     GameObject pizzaPiece = pieces[i];
+
                     foreach (Transform child in pizzaPiece.transform) {
                         childs.Add(child.gameObject);
                     }
@@ -187,6 +207,12 @@ public class CuttingPizza : MiniAction
                 foreach (GameObject child in sides[1]) {
                     child.transform.parent = pieces[1].transform;
                 }
+
+                float distanceToMove = 0.01f;
+                Vector3 moveDir = cutPlane.normal;
+                moveDir.y = 0;
+                pieces[0].transform.position += moveDir * distanceToMove;
+                pieces[1].transform.position += -moveDir * distanceToMove;
             }
 
         }

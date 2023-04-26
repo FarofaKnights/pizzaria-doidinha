@@ -66,8 +66,10 @@ public class IngridientsPizza : MiniAction
 
         if (Input.mousePosition.x == 0 || Input.mousePosition.y == 0 || Input.mousePosition.x >= Screen.width - 1 || Input.mousePosition.y >= Screen.height - 1) {
             if (inHand != null) {
-                inHandHolder.Add();
-                Destroy(inHand);
+                if (inHandHolder != null) {
+                    inHandHolder.Add();
+                    Destroy(inHand);
+                } else inHand.transform.position = oldPos;
                 inHand = null;
             }
             

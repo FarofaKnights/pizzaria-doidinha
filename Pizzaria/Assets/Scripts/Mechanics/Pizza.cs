@@ -21,4 +21,9 @@ public class Pizza : MonoBehaviour {
         // Darken the pizza material as it gets hotter
         GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.black, this.temperatura / 100);
     }
+
+    // Método que compara pizza atual com o prato em questão, retornando a porcentagem de similaridade
+    public float CompararPrato(Prato prato) {
+        return 100.0f;
+    }
 }

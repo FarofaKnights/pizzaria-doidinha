@@ -1,15 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct CutterReturnPlane {
+    public GameObject[] sides;
+    public Plane plane;
+}
+
 public class Cutter : MonoBehaviour
 {
     private static bool isBusy;
     private static Mesh originalMesh;
 
-    public static GameObject[] Cut(GameObject originalGameObject, Vector3 contactPoint, Vector3 cutNormal)
+    public static CutterReturnPlane Cut(GameObject originalGameObject, Vector3 contactPoint, Vector3 cutNormal)
     {
         Plane cutPlane = new Plane(originalGameObject.transform.InverseTransformDirection(-cutNormal), originalGameObject.transform.InverseTransformPoint(contactPoint));
-        return Cut(originalGameObject, cutPlane);
+        return new CutterReturnPlane { sides = Cut(originalGameObject, cutPlane), plane = cutPlane };
     }
 
     public static GameObject[] Cut(GameObject originalGameObject, Plane cutPlane)
@@ -95,13 +100,13 @@ public class Cutter : MonoBehaviour
         }
         
         //originalGameObject.GetComponent<Rigidbody>().AddRelativeForce(cutPlane.normal * 10f);
-
+        /*
         float distanceToMove = 0.01f;
         Vector3 moveDir = cutPlane.normal;
         moveDir.y = 0;
         originalGameObject.transform.position += moveDir * distanceToMove;
         right.transform.position += -moveDir * distanceToMove;
-        
+        */
         isBusy = false;
 
         return new GameObject[2] { originalGameObject, right };
