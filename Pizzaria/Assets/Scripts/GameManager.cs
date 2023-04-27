@@ -11,8 +11,9 @@ public class GameManager : MonoBehaviour {
     public GameObject spawnPersonagem;
     public GameObject personagemPrefab;
 
+    public QuadroPedidos quadroPedidos;
     public FilaPedidos pedidosNaMao = new FilaPedidos();
-    public FilaPedidos pedidos = new FilaPedidos();
+    public FilaPedidos pedidos;
 
     void Start() {
         instance = this;
@@ -28,6 +29,9 @@ public class GameManager : MonoBehaviour {
                 mesa.Ocupar(cliente);
             }
         }
+
+
+        pedidos = new FilaPedidos(quadroPedidos);
     }
 
     void Update() {

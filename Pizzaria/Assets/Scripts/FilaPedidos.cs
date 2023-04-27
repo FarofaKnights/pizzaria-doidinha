@@ -3,10 +3,18 @@ using System;
 
 public class FilaPedidos {
     public Pedido primeiroPedido, ultimoPedido;
+    public QuadroPedidos quadro;
 
     public FilaPedidos() {
         primeiroPedido = null;
         ultimoPedido = null;
+        quadro = null;
+    }
+
+    public FilaPedidos(QuadroPedidos quadro) {
+        primeiroPedido = null;
+        ultimoPedido = null;
+        this.quadro = quadro;
     }
 
     public void Adicionar(Pedido pedido) {
@@ -18,6 +26,9 @@ public class FilaPedidos {
             ultimoPedido = pedido;
             pedido.proximo = null;
         }
+
+        if (quadro && pedido != null)
+            quadro.AdicionarPedido(pedido);
     }
 
     public Pedido Remover() {
@@ -26,6 +37,10 @@ public class FilaPedidos {
         } else {
             Pedido pedido = primeiroPedido;
             primeiroPedido = primeiroPedido.proximo;
+
+            if (quadro)
+                quadro.RemoverPedido();
+
             return pedido;
         }
     }

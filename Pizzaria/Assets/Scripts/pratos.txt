@@ -1,2 +1,2 @@
-Calabresa;24,90;60;Mussarela,1;Calabresa,6;Cebola,3;Tomate,3
-Portuguesa;29,90;75;Mussarela,1;Ervilha,3;Palmito,3;Calabresa,3;Cebola,2;Ovo,3;Tomate,2
+Calabresa;24,90;Molho de Tomate;60;Mussarela,1;Calabresa,6;Cebola,3;Tomate,3
+Portuguesa;29,90;Molho de Tomate;75;Mussarela,1;Ervilha,3;Palmito,3;Calabresa,3;Cebola,2;Ovo,3;Tomate,2

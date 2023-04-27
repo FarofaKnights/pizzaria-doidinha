@@ -27,9 +27,9 @@ public class Cliente {
     }
 
     public void GerarPedido() {
-        this.pedido = new Pedido();
-        this.pedido.cliente = this;
-        this.pedido.prato = GameManager.instance.listaPratos.PratoAleatorio();
-        this.pedido.fatias = Random.Range(1, 5);
+        Prato prato = GameManager.instance.listaPratos.PratoAleatorio();
+        int fatias = Random.Range(1, 5);
+
+        this.pedido = new Pedido(this, prato, fatias);
     }
 }

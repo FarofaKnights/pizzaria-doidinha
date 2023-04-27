@@ -81,7 +81,7 @@ public class ListaPratos {
 
     
     public static ListaPratos LerPratosArquivo(ListaPratos listaPratos) {
-        // Formato do arquivo: nome;preco;tempoDePreparo;ingrediente1,quantidade1;ingrediente2,quantidade2;...
+        // Formato do arquivo: nome;preco;molho;tempoDePreparo;ingrediente1,quantidade1;ingrediente2,quantidade2;...
 
         listaPratos.Limpar();
 
@@ -92,17 +92,18 @@ public class ListaPratos {
             string[] dados = linha.Split(';');
             string nome = dados[0];
             float preco = float.Parse(dados[1]);
-            int tempoDePreparo = int.Parse(dados[2]);
+            string molho = dados[2];
+            int tempoDePreparo = int.Parse(dados[3]);
 
-            QuantIngredientes[] ingredientes = new QuantIngredientes[dados.Length - 3];
-            for (int i = 3; i < dados.Length; i++) {
+            QuantIngredientes[] ingredientes = new QuantIngredientes[dados.Length - 4];
+            for (int i = 4; i < dados.Length; i++) {
                 string[] ingrediente = dados[i].Split(',');
                 string nomeIngrediente = ingrediente[0];
                 int quantidade = int.Parse(ingrediente[1]);
-                ingredientes[i - 3] = new QuantIngredientes(nomeIngrediente, quantidade);
+                ingredientes[i - 4] = new QuantIngredientes(nomeIngrediente, quantidade);
             }
 
-            Prato prato = new Prato(nome, preco, tempoDePreparo, ingredientes);
+            Prato prato = new Prato(nome, preco, molho, tempoDePreparo, ingredientes);
             listaPratos.Adicionar(prato);
             linha = arquivo.ReadLine();
         }

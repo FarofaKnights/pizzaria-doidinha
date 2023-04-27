@@ -5,6 +5,8 @@ using UnityEngine;
 public enum EstadoMesa { Vazia, AguardandoCliente, AguardandoAtendimento, AguardandoPedido, Comendo, Suja };
 
 public class Mesa : MonoBehaviour {
+    public int numero;
+
     public Cliente cliente = null;
     public Pizza pizza = null;
 
