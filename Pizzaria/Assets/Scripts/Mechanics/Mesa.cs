@@ -31,16 +31,29 @@ public class Mesa : MonoBehaviour {
         estado = EstadoMesa.Comendo;
         GameManager.instance.ProximoPedido();
 
-        StartCoroutine(ComerPizza());
+        float semelhanca = this.pizza.CompararPrato(cliente.pedido);
+        if (semelhanca < 50f) {
+            float dinheiro = cliente.pedido.prato.preco;
+            GameManager.instance.SubDinheiro(dinheiro);
+            IrEmbora();
+        } else {
+            float dinheiro = cliente.pedido.prato.preco * semelhanca / 100f;
+            GameManager.instance.AddDinheiro(dinheiro);
+            StartCoroutine(ComerPizza());
+        }
     }
 
     IEnumerator ComerPizza() {
         yield return new WaitForSeconds(5f);
 
-        // Cliente terminou de comer
+        IrEmbora();
+    }
+
+    public void IrEmbora() {
+        pizza.SpawnNova();
         Destroy(pizza.gameObject);
         pizza = null;
-        estado = EstadoMesa.Suja;
+        estado = EstadoMesa.Vazia;
 
         // Cliente vai embora
         cliente.personagem.Levantar();

@@ -1,2 +1,5 @@
-Calabresa;24,90;Molho de Tomate;60;Mussarela,1;Calabresa,6;Cebola,3;Tomate,3
-Portuguesa;29,90;Molho de Tomate;75;Mussarela,1;Ervilha,3;Palmito,3;Calabresa,3;Cebola,2;Ovo,3;Tomate,2
+Vegetariana;31,90;Molho de Tomate;8;Champignon,3;Azeitona,4;Pimentao,2
+C de Sabor;24,90;Molho Picante;3;Champignon,3;Camarao,3;Calabresa,3
+Carnivora;30,90;Molho Picante;10;Calabresa,6;Camarao,6
+A Mesquinha;21,90;Molho de Tomate;5;Calabresa,1;Azeitona,1;Camarao,1;Pimentao,1;Champignon,1
+Onivora;29,90;Molho de Tomate;10;Calabresa,3;Azeitona,3;Camarao,3;Pimentao,3;Champignon,3

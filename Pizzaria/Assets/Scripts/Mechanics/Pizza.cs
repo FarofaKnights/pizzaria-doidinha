@@ -11,10 +11,22 @@ public class Pizza : MonoBehaviour {
     public string[] nomeMolhos;
     public GameObject[] prefabMolhos;
 
-    public EstadoPizza estado = EstadoPizza.FaltaMolho;
+    EstadoPizza _estado = EstadoPizza.FaltaMolho;
     public float temperatura = 0;
     public int pedacos;
     public string molho = "";
+
+    public Freezer freezer;
+
+    public EstadoPizza estado {
+        get {
+            return _estado;
+        }
+        set {
+            _estado = value;
+            GameManager.instance.MostrarTrigger(this);
+        }
+    }
 
     public void AdicionarIngrediente(string ingrediente) {
         if (ingredientes.ContainsKey(ingrediente)) {
@@ -40,9 +52,47 @@ public class Pizza : MonoBehaviour {
         GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.black, this.temperatura / 100);
     }
 
+    public void AtualizarFatias() {
+        pedacos = transform.childCount;
+    }
+
     // Método que compara pizza atual com o prato em questão, retornando a porcentagem de similaridade
-    public float CompararPrato(Prato prato) {
-        return 100.0f;
+    public float CompararPrato(Pedido pedido) {
+        if (estado != EstadoPizza.Entregue && estado != EstadoPizza.FaltaEntregar) {
+            return 0;
+        }
+
+        Prato prato = pedido.prato;
+        float similaridade = 0;
+
+        // Confere o molho
+        if (molho == prato.molho) {
+            similaridade += 20f;
+        }
+
+        // Confere as fatias
+        similaridade += 20f * Mathf.Min(pedacos, pedido.fatias) / Mathf.Max(pedacos, pedido.fatias);
+
+        // Confere a temperatura
+        similaridade += 20f * Mathf.Min(temperatura, prato.temperatura) / Mathf.Max(temperatura, prato.temperatura);
+
+        // Confere os ingredientes
+        float similaridadeIngrediente = 0;
+        foreach (KeyValuePair<string, int> ingrediente in ingredientes) {
+            if (prato.TemIngrediente(ingrediente.Key)) {
+                similaridadeIngrediente += 40f * Mathf.Min(ingrediente.Value, prato.QuantIngrediente(ingrediente.Key)) / Mathf.Max(ingrediente.Value, prato.QuantIngrediente(ingrediente.Key));
+            } else {
+                similaridadeIngrediente -= ingrediente.Value * 10f;
+            }
+        }
+
+        if (similaridadeIngrediente < 0) similaridadeIngrediente = 0;
+
+        similaridade += similaridadeIngrediente / ingredientes.Count;
+
+        Debug.Log("Similaridade: " + similaridade);
+        Debug.Log("Similaridade ingredientes: " + similaridadeIngrediente);
+        return similaridade;
     }
 
     public void AddMolho(string molho) {
@@ -63,6 +113,18 @@ public class Pizza : MonoBehaviour {
                 break;
             }
         }
+    }
+
+    public void PizzaPegada() {
+        GameManager.instance.MostrarTrigger(this);
+    }
+
+    public void PizzaSoltada() {
+        GameManager.instance.EsconderTriggers();
+    }
+
+    public void SpawnNova() {
+        freezer.Spawnar();
     }
 
     public Pizza CopyComponent(GameObject destination)  {

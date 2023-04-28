@@ -16,4 +16,22 @@ public class Prato {
         this.temperatura = temperatura;
         this.ingredientes = ingredientes;
     }
+
+    public bool TemIngrediente(string ingrediente) {
+        foreach (QuantIngredientes quant in ingredientes) {
+            if (quant.ingrediente == ingrediente) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int QuantIngrediente(string ingrediente) {
+        foreach (QuantIngredientes quant in ingredientes) {
+            if (quant.ingrediente == ingrediente) {
+                return quant.quant;
+            }
+        }
+        return 0;
+    }
 }

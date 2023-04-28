@@ -29,7 +29,7 @@ public class Cliente {
 
     public void GerarPedido() {
         Prato prato = GameManager.instance.listaPratos.PratoAleatorio();
-        int fatias = Random.Range(1, 5);
+        int fatias = Random.Range(2, 8);
 
         this.pedido = new Pedido(this, prato, fatias);
     }

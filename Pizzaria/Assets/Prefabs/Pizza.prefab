@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5491805660581329472}
   - component: {fileID: 1766454903691540074}
   - component: {fileID: 1766454903691540077}
+  - component: {fileID: 7011458303907596880}
   m_Layer: 10
   m_Name: Pizza
   m_TagString: Pickupable
@@ -134,7 +135,48 @@ MonoBehaviour:
   prefabMolhos:
   - {fileID: 2918380223961529332, guid: 041674591d735084c824f2c63c8d182b, type: 3}
   - {fileID: 2089748814607940232, guid: 12d989d0d17ab7f43ab10ed8e9dc8779, type: 3}
-  estado: 0
   temperatura: 0
   pedacos: 0
   molho: 
+--- !u!114 &7011458303907596880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5018203790238660996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42ad041a92f8b7647a1f9e06ceb366b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPickup:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1766454903691540077}
+        m_TargetAssemblyTypeName: Pizza, Assembly-CSharp
+        m_MethodName: PizzaPegada
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onRelease:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1766454903691540077}
+        m_TargetAssemblyTypeName: Pizza, Assembly-CSharp
+        m_MethodName: PizzaSoltada
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

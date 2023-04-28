@@ -244,5 +244,8 @@ public class CuttingPizza : MiniAction
             }
 
         }
+
+        pizza.GetComponent<Pizza>().estado = EstadoPizza.FaltaEntregar;
+        pizza.GetComponent<Pizza>().AtualizarFatias();
     }
 }

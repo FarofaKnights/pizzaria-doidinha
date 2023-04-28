@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Freezer : MonoBehaviour {
-    public GameObject tampa;
+    public GameObject prefab;
+    public GameObject tampa, invokePoint;
     bool aberto = false;
 
     Quaternion rotacaoDesejada;
@@ -34,5 +35,13 @@ public class Freezer : MonoBehaviour {
 
     void FixedUpdate() {
         tampa.transform.localRotation = Quaternion.Lerp(tampa.transform.localRotation, rotacaoDesejada, velocidadeRotacao);
+    }
+
+    public void Spawnar() {
+        GameObject novo = Instantiate(prefab);
+        novo.name = prefab.name;
+        novo.transform.position = invokePoint.transform.position;
+        novo.transform.rotation = invokePoint.transform.rotation;
+        novo.GetComponent<Pizza>().freezer = this;
     }
 }

@@ -37,8 +37,12 @@ public class QuadroPedidos : MonoBehaviour {
             GameObject folha = slot.transform.GetChild(0).gameObject;
             Destroy(folha);
 
-            for (int i = 1; i < index; i++) {
-                slots[i].transform.GetChild(0).SetParent(slots[i - 1].transform, false);
+            for (int i = 0; i < index; i++) {
+                GameObject slotAtual = slots[i+1];
+                GameObject slotAnterior = slots[i];
+
+                GameObject folhaAtual = slotAtual.transform.GetChild(0).gameObject;
+                folhaAtual.transform.SetParent(slotAnterior.transform, false);
             }
         }
     }
