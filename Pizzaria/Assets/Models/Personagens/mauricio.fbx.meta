@@ -1,0 +1,551 @@
+fileFormatVersion: 2
+guid: b690edb70963298428f3c393543d6ca8
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BAKE
+    second: {fileID: 2100000, guid: 1b129f7d8590ce4428c7ca198c8d9798, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: "Avatar Rig Configuration mis-match. Bone length in configuration
+      does not match position in animation file:\n\t'Coxa.L' : position error = 86.696373
+      mm\n\t'Coxa.R' : position error = 86.696373 mm\n"
+    animationImportErrors: 
+    animationImportWarnings: "\nClip 'Armature|ANDANDO' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Traps' has translation animation that will
+      be discarded.\n\t'Traps' is inbetween humanoid transforms and has rotation
+      animation that will be discarded.\n\nClip 'Armature|SENTANDO' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'MASTER' has translation animation
+      that will be discarded.\n\t'Tronco' has translation animation that will be
+      discarded.\n\t'Coxa.L' has translation animation that will be discarded.\n\t'Coxa.R'
+      has translation animation that will be discarded.\n"
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|ANDANDO
+      takeName: Armature|ANDANDO
+      internalID: -6030069865121092862
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|PEDINDO
+      takeName: Armature|PEDINDO
+      internalID: 2197500776140824247
+      firstFrame: 0
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|SENDATO,PARADO
+      takeName: Armature|SENDATO,PARADO
+      internalID: 2373806509804866365
+      firstFrame: 0
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|SENTANDO
+      takeName: Armature|SENTANDO
+      internalID: 4557490775682921599
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: Armature
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Coxa.L
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Coxa.R
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Canela.L
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Canela.R
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: PeBase.L
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: PeBase.R
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MASTER
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Tronco
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Pescoco
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Cabeca
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Biceps.L
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Biceps.R
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Ante_Braco.L
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Ante_Braco.R
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MaoBase.L
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MaoBase.R
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MaoBase.L.001
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MaoBase.R.001
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: PePonta.L
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: PePonta.R
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: mauricio(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Character
+      parentName: mauricio(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.19244453, y: 0.19244453, z: 0.19244453}
+    - name: Armature
+      parentName: mauricio(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 19.244457, y: 19.244457, z: 19.244457}
+    - name: MASTER
+      parentName: Armature
+      position: {x: -0, y: 0.013112999, z: 0.05051495}
+      rotation: {x: -0.5336146, y: -0, z: -0, w: 0.8457278}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tronco
+      parentName: MASTER
+      position: {x: -0, y: -0.013112999, z: 0}
+      rotation: {x: 0.87145185, y: -0.00000000705825, z: -0.0000000029409208, w: 0.49048108}
+      scale: {x: 1, y: 0.9999998, z: 0.9999998}
+    - name: Cintura
+      parentName: Tronco
+      position: {x: -7.252635e-21, y: -0.0014660553, z: -0.00016028735}
+      rotation: {x: 0.998518, y: -0.0000000028379596, z: -1.5467894e-10, w: -0.054422826}
+      scale: {x: 1, y: 0.9999998, z: 1.0000345}
+    - name: Traps
+      parentName: Tronco
+      position: {x: 2.838006e-10, y: 0.013570208, z: -0.0002819611}
+      rotation: {x: 0.1592341, y: -0.000000117048884, z: -0.000000018355742, w: 0.98724085}
+      scale: {x: 1.0000001, y: 0.9999998, z: 0.9999998}
+    - name: Pescoco
+      parentName: Traps
+      position: {x: 1.9790604e-10, y: 0.008785581, z: 0.0000000022695166}
+      rotation: {x: -0.0755776, y: -0.0000000016427961, z: 0.00000001743388, w: 0.99714}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+    - name: Cabeca
+      parentName: Pescoco
+      position: {x: -1.2572854e-10, y: 0.005656403, z: -7.8085577e-10}
+      rotation: {x: -0.018946422, y: 8.2516094e-10, z: 0.0000000062954766, w: 0.99982053}
+      scale: {x: 1.0000001, y: 1, z: 0.9999998}
+    - name: Biceps.L
+      parentName: Traps
+      position: {x: -0.009266226, y: 0.0054752803, z: -0.0009574298}
+      rotation: {x: -0.03289436, y: 0.1197681, z: 0.7338761, w: 0.66783196}
+      scale: {x: 1.0000004, y: 0.9999997, z: 1.0000001}
+    - name: Ante_Braco.L
+      parentName: Biceps.L
+      position: {x: 2.2351741e-10, y: 0.013869632, z: -0.000000003930181}
+      rotation: {x: -0.058857284, y: -0.0034794137, z: -0.064215325, w: 0.9961929}
+      scale: {x: 0.99999976, y: 0.99999946, z: 0.9999998}
+    - name: MaoBase.L
+      parentName: Ante_Braco.L
+      position: {x: -0.0000000023655593, y: 0.012391369, z: -6.519258e-10}
+      rotation: {x: -0.49246502, y: 0.00067695277, z: 0.082895786, w: 0.86637527}
+      scale: {x: 1.0000004, y: 1, z: 1.0000001}
+    - name: MaoPonta.L
+      parentName: MaoBase.L
+      position: {x: 1.8626451e-11, y: 0.006251581, z: 5.9604643e-10}
+      rotation: {x: -0.0046032756, y: -0.000002345652, z: -0.01305156, w: 0.9999043}
+      scale: {x: 1, y: 1.0000007, z: 0.99999976}
+    - name: MaoBase.L.001
+      parentName: MaoBase.L
+      position: {x: 0.0003775653, y: 0.001465292, z: 0.0027214682}
+      rotation: {x: 0.7234588, y: -0.106561646, z: 0.099130936, w: 0.67485195}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000002}
+    - name: MaoBase.L.002
+      parentName: MaoBase.L.001
+      position: {x: 1.4901161e-10, y: 0.0020824461, z: -1.862645e-10}
+      rotation: {x: -0.2544128, y: 0.0055626463, z: -0.13854691, w: 0.9571039}
+      scale: {x: 1.0000007, y: 1.0000002, z: 0.99999976}
+    - name: Biceps.R
+      parentName: Traps
+      position: {x: 0.0093088765, y: 0.0058796406, z: 0.0005360225}
+      rotation: {x: -0.07001364, y: -0.07861134, z: -0.7426145, w: 0.66139406}
+      scale: {x: 1.0000011, y: 1, z: 1.0000002}
+    - name: Ante_Braco.R
+      parentName: Biceps.R
+      position: {x: -4.842877e-10, y: 0.01360604, z: 0.0000000032782554}
+      rotation: {x: -0.00000010430813, y: 0.00000019744039, z: 0.06894364, w: 0.99762064}
+      scale: {x: 1.0000006, y: 0.99999994, z: 1.0000002}
+    - name: MaoBase.R
+      parentName: Ante_Braco.R
+      position: {x: -4.4703483e-10, y: 0.012526627, z: -0.0000000062212346}
+      rotation: {x: -0.46410707, y: 0.020798715, z: -0.04177366, w: 0.8845491}
+      scale: {x: 1.0000008, y: 1.000001, z: 1.0000001}
+    - name: MaoPonta.R
+      parentName: MaoBase.R
+      position: {x: 8.9406965e-10, y: 0.006038772, z: 6.3329936e-10}
+      rotation: {x: -0.00486002, y: -0.000048817565, z: -0.09407254, w: 0.9955535}
+      scale: {x: 1.0000001, y: 1.000001, z: 1.0000005}
+    - name: MaoBase.R.001
+      parentName: MaoBase.R
+      position: {x: -0.00022934168, y: 0.0016289675, z: 0.0025513994}
+      rotation: {x: 0.7485323, y: 0.068145946, z: -0.12994334, w: 0.6466609}
+      scale: {x: 1.0000007, y: 1.0000002, z: 1.0000004}
+    - name: MaoBase.R.002
+      parentName: MaoBase.R.001
+      position: {x: -0, y: 0.0021295159, z: -0.0000000010430813}
+      rotation: {x: -0.2675491, y: -0.0000013001262, z: 0.13668449, w: 0.95380026}
+      scale: {x: 0.9999998, y: 0.9999999, z: 0.9999997}
+    - name: Coxa.L
+      parentName: Armature
+      position: {x: -0.003960869, y: 0.000000002399403, z: 0.04465792}
+      rotation: {x: 0.7071067, y: 0.00000008401977, z: -0.00000008446457, w: -0.7071068}
+      scale: {x: 1.0000001, y: 1, z: 0.9999999}
+    - name: Canela.L
+      parentName: Coxa.L
+      position: {x: 1.9668192e-10, y: 0.022515142, z: -4.5169143e-10}
+      rotation: {x: -0, y: -0.000000017425851, z: -0.009522514, w: 0.9999547}
+      scale: {x: 0.9999999, y: 1.0000001, z: 1}
+    - name: PeBase.L
+      parentName: Canela.L
+      position: {x: -2.0721927e-10, y: 0.01770071, z: 1.9324943e-10}
+      rotation: {x: -0.102051586, y: 0.0015257417, z: 0.009216666, w: 0.9947353}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
+    - name: PePonta.L
+      parentName: PeBase.L
+      position: {x: -4.377216e-10, y: 0.002836208, z: -2.3981556e-10}
+      rotation: {x: -0.56673396, y: 0.0000000018626451, z: -0.0028455143, w: 0.823896}
+      scale: {x: 1, y: 0.99999976, z: 1.0000002}
+    - name: Coxa.R
+      parentName: Armature
+      position: {x: 0.003960869, y: -0.0000000012583125, z: 0.04465792}
+      rotation: {x: 0.7071067, y: -0.00000008577596, z: 0.00000008272671, w: -0.7071068}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Canela.R
+      parentName: Coxa.R
+      position: {x: 1.9300785e-10, y: 0.022515144, z: -7.0780515e-10}
+      rotation: {x: -0, y: 0.000000015252766, z: 0.009522513, w: 0.9999547}
+      scale: {x: 1, y: 1.0000004, z: 1.0000005}
+    - name: PeBase.R
+      parentName: Canela.R
+      position: {x: 4.4703483e-10, y: 0.017700706, z: 8.9872626e-10}
+      rotation: {x: -0.102051586, y: -0.001525739, z: -0.009216665, w: 0.9947353}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000005}
+    - name: PePonta.R
+      parentName: PeBase.R
+      position: {x: 1.7695129e-10, y: 0.0028362065, z: 3.1664968e-10}
+      rotation: {x: -0.56673396, y: 6.9849193e-10, z: 0.0028455108, w: 0.823896}
+      scale: {x: 1, y: 1.0000005, z: 1.0000008}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

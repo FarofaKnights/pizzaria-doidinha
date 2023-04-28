@@ -12,7 +12,8 @@ public class Mesa : MonoBehaviour {
 
     public EstadoMesa estado = EstadoMesa.Vazia;
 
-    public GameObject triggerAtendimento, triggerPedido;
+    public GameObject triggerAtendimento, triggerPedido, triggerCliente;
+    public GameObject sentadoSlot;
 
     void Start() {
         triggerAtendimento.SetActive(false);
@@ -42,7 +43,7 @@ public class Mesa : MonoBehaviour {
         estado = EstadoMesa.Suja;
 
         // Cliente vai embora
-        cliente.personagem.gameObject.SetActive(true); // TEMP
+        cliente.personagem.Levantar();
         cliente.personagem.SetDestino(GameManager.instance.spawnPersonagem);
         cliente = null;
     }
@@ -57,15 +58,17 @@ public class Mesa : MonoBehaviour {
     public void ClienteChegou() {
         estado = EstadoMesa.AguardandoAtendimento;
         triggerAtendimento.SetActive(true);
+
+        cliente.personagem.Sentar(sentadoSlot);
     }
 
     public void ClienteAtendido() {
         estado = EstadoMesa.AguardandoPedido;
         triggerAtendimento.SetActive(false);
 
+        cliente.personagem.FoiAtendido();
         cliente.GerarPedido();
         GameManager.instance.pedidosNaMao.Adicionar(cliente.pedido);
-        cliente.personagem.gameObject.SetActive(false); // TEMP
     }
 
     public void HabilitarTriggerPedido() {

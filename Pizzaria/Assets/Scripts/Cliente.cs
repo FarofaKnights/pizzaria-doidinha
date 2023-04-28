@@ -19,11 +19,12 @@ public class Cliente {
         GameObject personagem = GameObject.Instantiate(GameManager.instance.personagemPrefab);
         personagem.transform.position = spawn.transform.position;
         this.personagem = personagem.GetComponent<Personagem>();
+        this.personagem.cliente = this;
     }
 
     public void SetMesa(Mesa mesa) {
         this.mesa = mesa;
-        this.personagem.SetDestino(mesa.gameObject);
+        this.personagem.SetDestino(mesa.triggerCliente);
     }
 
     public void GerarPedido() {

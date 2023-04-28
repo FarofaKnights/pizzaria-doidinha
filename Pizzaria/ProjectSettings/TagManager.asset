@@ -7,6 +7,7 @@ TagManager:
   - Pickupable
   - Mesa
   - Molho
+  - Personagem
   layers:
   - Default
   - TransparentFX
