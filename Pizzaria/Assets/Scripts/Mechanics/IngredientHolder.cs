@@ -7,7 +7,7 @@ public class IngredientHolder: MonoBehaviour {
     public int quantidade;
 
     public GameObject Use() {
-        if (quantidade > 0) {
+        if (quantidade > 0 || quantidade < 0) {
             quantidade--;
             return Instantiate(ingrediente.prefab);
         }

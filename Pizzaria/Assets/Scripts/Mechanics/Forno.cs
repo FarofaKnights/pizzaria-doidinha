@@ -13,7 +13,14 @@ public class Forno : MonoBehaviour {
 
     public void AddPizza(GameObject pizza) {
         Pizza pizzaScript = pizza.GetComponent<Pizza>();
+        if (pizzaScript.estado != EstadoPizza.FaltaCozinhar && pizzaScript.estado != EstadoPizza.FaltaCortar) return;
+
         pizzas.Add(pizzaScript);
+    }
+
+    public void RemovePizza(TriggerController trigger) {
+        GameObject pizza = trigger.item;
+        RemovePizza(pizza);
     }
 
     public void RemovePizza(GameObject pizza) {

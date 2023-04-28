@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 125662821150065853}
   - component: {fileID: 7548201691917530494}
   - component: {fileID: 7685580983552913984}
+  - component: {fileID: 4850603176061114054}
   m_Layer: 0
   m_Name: Fogao_Medio
   m_TagString: Untagged
@@ -83,6 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4850603176061114054
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045998674220499745}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7811043, y: 0.92351043, z: 0.8200131}
+  m_Center: {x: 0, y: -0.0072268248, z: 0.026217848}
 --- !u!1 &3646381948127959590
 GameObject:
   m_ObjectHideFlags: 0

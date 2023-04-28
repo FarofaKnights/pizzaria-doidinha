@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pickupable
   - Mesa
+  - Molho
   layers:
   - Default
   - TransparentFX

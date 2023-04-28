@@ -7,21 +7,18 @@ public class MiniAction : MonoBehaviour
     protected bool isActionHappening = false;
     protected GameObject miniActionItem = null;
 
-    public virtual void OnComecar(){}
-    public virtual void OnTerminar(){}
+    public virtual bool OnComecar(){ return true; }
+    public virtual bool OnTerminar(){ return true; }
     
     public void Comecar() {
-        Debug.Log("Começar");
-        
+        if (!OnComecar()) return;
+
         CameraController.instance.SetTarget(gameObject);
         isActionHappening = true;
-
-        OnComecar();
     }
 
     public void Terminar() {
-        Debug.Log("Terminar");
-        this.OnTerminar();
+        if (!OnTerminar()) return;
         CameraController.instance.SetToPlayer();
         isActionHappening = false;
     }

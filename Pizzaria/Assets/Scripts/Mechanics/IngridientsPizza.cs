@@ -10,19 +10,33 @@ public class IngridientsPizza : MiniAction
     public LayerMask ingredientHolderLayer, pizzaLayer, ingredientPutLayer, ingredientLayer;
     public GameObject ingredientPutPlane;
 
+    public GameObject triggerEEntrar;
+
     GameObject inHand = null;
     IngredientHolder inHandHolder = null;
     Vector3 oldPos;
 
-    public override void OnComecar() {
-        pizza = miniActionItem;
-        pizzaCollider = pizza.GetComponent<Collider>();
+    public override bool OnComecar() {
+        if (miniActionItem == null) return false;
 
+        pizza = miniActionItem;
+
+        if (pizza.GetComponent<Pizza>().estado != EstadoPizza.FaltaIngrediente && pizza.GetComponent<Pizza>().estado != EstadoPizza.FaltaCozinhar) {
+            triggerEEntrar.SetActive(true);
+            return false;
+        }
+
+        triggerEEntrar.SetActive(false);
+        pizzaCollider = pizza.GetComponent<Collider>();
         ingredientPutPlane.SetActive(true);
+
+        return true;
     }
 
-    public override void OnTerminar() {
+    public override bool OnTerminar() {
         ingredientPutPlane.SetActive(false);
+
+        return true;
     }
 
     void Update() {
@@ -57,6 +71,7 @@ public class IngridientsPizza : MiniAction
             } else {
                 if (inHandHolder != null) {
                     inHandHolder.Add();
+                    pizza.GetComponent<Pizza>().RemoverIngrediente(inHand.name);
                     Destroy(inHand);
                 } else inHand.transform.position = oldPos;
 
@@ -68,6 +83,7 @@ public class IngridientsPizza : MiniAction
             if (inHand != null) {
                 if (inHandHolder != null) {
                     inHandHolder.Add();
+                    pizza.GetComponent<Pizza>().RemoverIngrediente(inHand.name);
                     Destroy(inHand);
                 } else inHand.transform.position = oldPos;
                 inHand = null;
@@ -87,7 +103,12 @@ public class IngridientsPizza : MiniAction
 
     public void PutInPizza(Vector3 posPizza) {
         if (inHand == null) return;
+
+        if (pizza.GetComponent<Pizza>().estado == EstadoPizza.FaltaIngrediente) {
+            pizza.GetComponent<Pizza>().estado = EstadoPizza.FaltaCozinhar;
+        }
         
+        pizza.GetComponent<Pizza>().AdicionarIngrediente(inHand.name);
         inHand.transform.position = posPizza;
         inHand.transform.parent = pizza.transform;
         inHand = null;

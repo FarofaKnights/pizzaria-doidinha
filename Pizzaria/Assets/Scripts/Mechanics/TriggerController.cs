@@ -42,8 +42,6 @@ public class TriggerController : MonoBehaviour {
         if (onItemEnter != null) {
             onItemEnter.Invoke(this);
         }
-
-        Debug.Log("Item entered");
     }
 
     void FixedUpdate() {
@@ -55,14 +53,13 @@ public class TriggerController : MonoBehaviour {
     public void OnItemExit() {
         if (item == null) return;
 
-        this.item = null;
         trigger.SetActive(true);
 
         if (onItemExit != null) {
             onItemExit.Invoke(this);
         }
 
-        Debug.Log("Item exited");
+        this.item = null;
     }
 
     public void Desativar() {

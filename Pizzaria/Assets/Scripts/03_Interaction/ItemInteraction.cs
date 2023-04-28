@@ -68,6 +68,10 @@ public class ItemInteraction : MonoBehaviour {
         heldItem.transform.SetParent(holdPosition);
         heldItem.transform.localPosition = Vector3.zero;
         heldItem.transform.localRotation = Quaternion.identity;
+
+        if (heldItem.GetComponent<PickupListener>() != null) {
+            heldItem.GetComponent<PickupListener>().OnPickup();
+        }
     }
 
     void DropItem() {
@@ -76,6 +80,11 @@ public class ItemInteraction : MonoBehaviour {
         heldItemRigidbody.useGravity = true;
         heldItem.transform.SetParent(null);
         heldItemRigidbody.AddForce(holdPosition.forward * dropForce, ForceMode.Impulse);
+
+        if (heldItem.GetComponent<PickupListener>() != null) {
+            heldItem.GetComponent<PickupListener>().OnRelease();
+        }
+
         heldItem = null;
     }
 
@@ -85,6 +94,11 @@ public class ItemInteraction : MonoBehaviour {
         heldItemRigidbody.useGravity = true;
         heldItem.transform.SetParent(null);
         heldItemRigidbody.AddForce(holdPosition.forward * throwForce, ForceMode.Impulse);
+
+        if (heldItem.GetComponent<PickupListener>() != null) {
+            heldItem.GetComponent<PickupListener>().OnRelease();
+        }
+
         heldItem = null;
     }
 }

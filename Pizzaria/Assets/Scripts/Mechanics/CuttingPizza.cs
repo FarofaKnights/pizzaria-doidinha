@@ -20,14 +20,42 @@ public class CuttingPizza : MiniAction
     LineRenderer lineRenderer;
     public GameObject cutPlane;
 
+    public GameObject triggerEEntrar;
+
     // OnComecar é chamado quando o mini-game começa
-    public override void OnComecar() {
+    public override bool OnComecar() {
         if (miniActionItem != null) {
             pizza = miniActionItem;
         }
+
+        if (pizza.GetComponent<Pizza>().estado != EstadoPizza.FaltaCozinhar && pizza.GetComponent<Pizza>().estado != EstadoPizza.FaltaCortar && pizza.GetComponent<Pizza>().estado != EstadoPizza.Cortando) {
+            triggerEEntrar.SetActive(true);
+            return false;
+        }
+        triggerEEntrar.SetActive(false);
         
         pizzaInitialPos = pizza.transform.position;
         pizzaCollider = pizza.GetComponent<Collider>();
+
+        GameObject aux = new GameObject();
+        for (int i = pizza.transform.childCount - 1; i >= 0; i--) {
+            Transform child = pizza.transform.GetChild(i);
+            if (child.gameObject.tag != "Molho")
+                child.parent = aux.transform;
+        }
+
+        MeshCombiner.Combine(pizza);
+        
+        foreach (Transform child in pizza.transform) {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = aux.transform.childCount - 1; i >= 0; i--) {
+            Transform child = aux.transform.GetChild(i);
+            child.parent = pizza.transform;
+        }
+
+        Destroy(aux);
 
         // Create parent object for pizza
         GameObject pizzaParent = Instantiate(pizza);
@@ -47,16 +75,16 @@ public class CuttingPizza : MiniAction
 
         Destroy(pizza.GetComponent<Rigidbody>());
 
+        pizza.GetComponent<Pizza>().CopyComponent(pizzaParent);
+
         pizza.transform.parent = pizzaParent.transform;
         pizza.tag = "Untagged";
 
         pizza = pizzaParent;
 
-        /*
-        MeshCombiner.Combine(pizza);
-        foreach (Transform child in pizza.transform) {
-            Destroy(child.gameObject);
-        }*/
+        pizza.GetComponent<Pizza>().estado = EstadoPizza.Cortando;
+
+        return true;
     }
 
     void Start() {
