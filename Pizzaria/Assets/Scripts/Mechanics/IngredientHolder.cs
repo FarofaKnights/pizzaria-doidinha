@@ -9,7 +9,9 @@ public class IngredientHolder: MonoBehaviour {
     public GameObject Use() {
         if (quantidade > 0 || quantidade < 0) {
             quantidade--;
-            return Instantiate(ingrediente.prefab);
+            GameObject n = Instantiate(ingrediente.prefab);
+            n.name = ingrediente.nome;
+            return n;
         }
         return null;
     }

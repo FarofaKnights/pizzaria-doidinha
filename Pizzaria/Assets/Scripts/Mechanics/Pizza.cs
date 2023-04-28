@@ -29,7 +29,9 @@ public class Pizza : MonoBehaviour {
     }
 
     public void AdicionarIngrediente(string ingrediente) {
+        Debug.Log("+" + ingrediente);
         if (ingredientes.ContainsKey(ingrediente)) {
+            Debug.Log("já havia");
             ingredientes[ingrediente]++;
         } else {
             ingredientes.Add(ingrediente, 1);
@@ -37,7 +39,9 @@ public class Pizza : MonoBehaviour {
     }
 
     public void RemoverIngrediente(string ingrediente) {
-        if (ingredientes.ContainsKey(ingrediente)) {
+        Debug.Log("-" + ingrediente);
+        if (ingredientes.ContainsKey(ingrediente))
+        {
             ingredientes[ingrediente]--;
             if (ingredientes[ingrediente] <= 0) {
                 ingredientes.Remove(ingrediente);
@@ -49,7 +53,7 @@ public class Pizza : MonoBehaviour {
         this.temperatura += temperatura;
 
         // Darken the pizza material as it gets hotter
-        GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.black, this.temperatura / 100);
+        GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.black, this.temperatura / 200);
     }
 
     public void AtualizarFatias() {
@@ -77,21 +81,28 @@ public class Pizza : MonoBehaviour {
         similaridade += 20f * Mathf.Min(temperatura, prato.temperatura) / Mathf.Max(temperatura, prato.temperatura);
 
         // Confere os ingredientes
-        float similaridadeIngrediente = 0;
-        foreach (KeyValuePair<string, int> ingrediente in ingredientes) {
-            if (prato.TemIngrediente(ingrediente.Key)) {
-                similaridadeIngrediente += 40f * Mathf.Min(ingrediente.Value, prato.QuantIngrediente(ingrediente.Key)) / Mathf.Max(ingrediente.Value, prato.QuantIngrediente(ingrediente.Key));
+        int quantExtra = 0;
+
+        foreach (QuantIngredientes ingrediente in prato.ingredientes) {
+            Debug.Log(ingrediente.ingrediente);
+            Debug.Log(ingredientes.ContainsKey(ingrediente.ingrediente));
+            if (ingredientes.ContainsKey(ingrediente.ingrediente)) {
+                quantExtra += Mathf.Abs(ingrediente.quant - ingredientes[ingrediente.ingrediente]);
             } else {
-                similaridadeIngrediente -= ingrediente.Value * 10f;
+                quantExtra += ingrediente.quant;
             }
         }
 
-        if (similaridadeIngrediente < 0) similaridadeIngrediente = 0;
+        foreach (KeyValuePair<string, int> ingrediente in ingredientes) {
+            if (!prato.TemIngrediente(ingrediente.Key)) {
+                quantExtra += ingrediente.Value;
+            }
+        }
 
-        similaridade += similaridadeIngrediente / ingredientes.Count;
+        similaridade += 40f / (1+quantExtra);
 
         Debug.Log("Similaridade: " + similaridade);
-        Debug.Log("Similaridade ingredientes: " + similaridadeIngrediente);
+        Debug.Log("Extras: " + quantExtra);
         return similaridade;
     }
 

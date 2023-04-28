@@ -59,6 +59,8 @@ public class Mesa : MonoBehaviour {
         cliente.personagem.Levantar();
         cliente.personagem.SetDestino(GameManager.instance.spawnPersonagem);
         cliente = null;
+     
+        GameManager.instance.GerarPedido();
     }
 
     public void Ocupar(Cliente cliente) {
