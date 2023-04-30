@@ -14,6 +14,8 @@ public class Personagem : MonoBehaviour {
     NavMeshAgent agent;
     public GameObject personagem;
 
+    GameObject oldParent;
+
     void Start() {
         agent = GetComponent<NavMeshAgent>();
     }
@@ -50,6 +52,8 @@ public class Personagem : MonoBehaviour {
     public void Sentar(GameObject sentadoSlot) {
         animator.SetTrigger("Sentar");
 
+        oldParent = personagem.transform.parent.gameObject;
+
         transform.SetParent(sentadoSlot.transform);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
@@ -63,5 +67,9 @@ public class Personagem : MonoBehaviour {
 
     public void Levantar() {
         animator.SetTrigger("Levantar");
+
+        transform.SetParent(oldParent.transform);
+        personagem.transform.rotation = Quaternion.Euler(0, 0, 0);
+
     }
 }
