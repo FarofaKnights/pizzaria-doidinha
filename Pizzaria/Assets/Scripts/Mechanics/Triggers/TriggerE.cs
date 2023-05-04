@@ -30,5 +30,9 @@ public class TriggerE : MonoBehaviour {
                 onEEvent.Invoke();
             }
         }
+
+        if (indicador != null && playerNaArea) {
+            indicador.transform.LookAt(Camera.main.transform);
+        }
     }
 }

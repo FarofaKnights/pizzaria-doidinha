@@ -35,8 +35,13 @@ public class IngridientsPizza : MiniAction
 
     public override bool OnTerminar() {
         ingredientPutPlane.SetActive(false);
+        triggerEEntrar.SetActive(true);
 
         return true;
+    }
+
+    public void TirouPizza() {
+        triggerEEntrar.SetActive(false);
     }
 
     void Update() {

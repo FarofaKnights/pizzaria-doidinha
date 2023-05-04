@@ -8,6 +8,7 @@ TagManager:
   - Mesa
   - Molho
   - Personagem
+  - Placeable
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - PutIngredients
   - Pizza
   - Ingredients
-  - 
-  - 
+  - No-Post
+  - Trigger
   - 
   - 
   - 

@@ -16,18 +16,29 @@ public class ItemTrigger : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
+        TryToPlace(other.gameObject);
+    }
+
+    public bool TryToPlace(GameObject item) {
         string name = controller.itemName;
 
-        if (other.gameObject.name == name && !hasChild()) {
-            other.gameObject.transform.parent = slot.transform;
-            other.gameObject.transform.localPosition = Vector3.zero;
-            other.gameObject.transform.localRotation = Quaternion.identity;
-            other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-
-            isOn = true;
-
-            controller.OnItemEnter(other.gameObject);
+        if (item.name == name && !hasChild()) {
+            PlaceItem(item);
+            return true;
         }
+
+        return false;
+    }
+
+    public void PlaceItem(GameObject item) {
+        item.transform.SetParent(slot.transform, false);
+        item.transform.localPosition = Vector3.zero;
+        item.transform.localRotation = Quaternion.identity;
+        item.GetComponent<Rigidbody>().isKinematic = true;
+
+        isOn = true;
+
+        controller.OnItemEnter(item);
     }
 
     void FixedUpdate() {

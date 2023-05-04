@@ -16,6 +16,10 @@ public class Forno : MonoBehaviour {
         if (pizzaScript.estado != EstadoPizza.FaltaCozinhar && pizzaScript.estado != EstadoPizza.FaltaCortar) return;
 
         pizzas.Add(pizzaScript);
+
+        if (pizzaScript.estado == EstadoPizza.FaltaCozinhar) {
+            pizzaScript.estado = EstadoPizza.FaltaCortar;
+        }
     }
 
     public void RemovePizza(TriggerController trigger) {

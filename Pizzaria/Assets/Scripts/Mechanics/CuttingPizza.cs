@@ -28,12 +28,30 @@ public class CuttingPizza : MiniAction
             pizza = miniActionItem;
         }
 
-        if (pizza.GetComponent<Pizza>().estado != EstadoPizza.FaltaCozinhar && pizza.GetComponent<Pizza>().estado != EstadoPizza.FaltaCortar && pizza.GetComponent<Pizza>().estado != EstadoPizza.Cortando) {
+        if (pizza.GetComponent<Pizza>().estado != EstadoPizza.FaltaCozinhar && pizza.GetComponent<Pizza>().estado != EstadoPizza.FaltaCortar && pizza.GetComponent<Pizza>().estado != EstadoPizza.Cortando && pizza.GetComponent<Pizza>().estado != EstadoPizza.FaltaEntregar) {
             triggerEEntrar.SetActive(true);
             return false;
         }
         triggerEEntrar.SetActive(false);
         
+        
+        TransformPizzaInCuttablePizza();
+
+        foreach (Transform child in pizza.transform) {
+            if (child.gameObject.GetComponent<Collider>() != null)
+                child.gameObject.GetComponent<Collider>().enabled = true;
+        }
+
+        return true;
+    }
+
+    public void TirouPizza() {
+        triggerEEntrar.SetActive(false);
+    }
+
+    void TransformPizzaInCuttablePizza() {
+        if (pizza.GetComponent<Pizza>().estado == EstadoPizza.Cortando || pizza.GetComponent<Pizza>().estado == EstadoPizza.FaltaEntregar) return;
+
         pizzaInitialPos = pizza.transform.position;
         pizzaCollider = pizza.GetComponent<Collider>();
 
@@ -76,6 +94,8 @@ public class CuttingPizza : MiniAction
         Destroy(pizza.GetComponent<Rigidbody>());
 
         pizza.GetComponent<Pizza>().CopyComponent(pizzaParent);
+        Destroy(pizza.GetComponent<Pizza>());
+        Destroy(pizza.GetComponent<PickupListener>());
 
         pizza.transform.parent = pizzaParent.transform;
         pizza.tag = "Untagged";
@@ -83,7 +103,16 @@ public class CuttingPizza : MiniAction
         pizza = pizzaParent;
 
         pizza.GetComponent<Pizza>().estado = EstadoPizza.Cortando;
+    }
 
+    public override bool OnTerminar() {
+        pizza.GetComponent<Collider>().enabled = true;
+
+        foreach (Transform child in pizza.transform) {
+            child.gameObject.GetComponent<Collider>().enabled = false;
+        }
+
+        triggerEEntrar.SetActive(true);
         return true;
     }
 
