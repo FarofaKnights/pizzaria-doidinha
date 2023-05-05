@@ -22,7 +22,7 @@ public class FornoTrigger : ItemTrigger {
 
     void FixedUpdate() {
         if (fornoTxt != null && pizza != null)
-            fornoTxt.text = pizza.GetComponent<Pizza>().temperatura + "s";
+            fornoTxt.text = pizza.GetComponent<Pizza>().temperatura.ToString("F2") + "º";
         else
             fornoTxt.text = "";
     }

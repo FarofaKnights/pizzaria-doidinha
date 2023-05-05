@@ -10,7 +10,7 @@ public class ItemInteraction : MonoBehaviour {
     public float pickUpRange = 1.0f;
     public Transform holdPosition;
 
-    GameObject heldItem;
+    public GameObject heldItem;
     Rigidbody heldItemRigidbody;
 
     void Start() {

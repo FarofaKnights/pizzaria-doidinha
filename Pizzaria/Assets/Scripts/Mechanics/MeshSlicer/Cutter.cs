@@ -26,6 +26,13 @@ public class Cutter : MonoBehaviour
 
         originalMesh = originalGameObject.GetComponent<MeshFilter>().mesh;
 
+        MeshRenderer originalRenderer = originalGameObject.GetComponent<MeshRenderer>();
+        Material[] originalMats = new Material[originalRenderer.materials.Length];
+        for (int i = 0; i < originalRenderer.materials.Length; i++) {
+            originalMats[i] = originalRenderer.materials[i];
+        }
+        originalRenderer = null;
+
         if (originalMesh == null)
         {
             Debug.LogError("Need mesh to cut");
@@ -59,10 +66,8 @@ public class Cutter : MonoBehaviour
         }
         Material[] mats = new Material[finishedLeftMesh.subMeshCount];
         for (int i = 0; i < finishedLeftMesh.subMeshCount; i++) {
-            if (originalGameObject.GetComponent<MeshRenderer>().materials.Length > i)
-                mats[i] = originalGameObject.GetComponent<MeshRenderer>().materials[i];
-            else
-                mats[i] = originalGameObject.GetComponent<MeshRenderer>().material;
+            if (originalMats.Length > i) mats[i] = originalMats[i];
+            else mats[i] = originalMats[0];
         }
         originalGameObject.GetComponent<MeshRenderer>().materials = mats;
 
@@ -77,10 +82,8 @@ public class Cutter : MonoBehaviour
         
         mats = new Material[finishedRightMesh.subMeshCount];
         for (int i = 0; i < finishedRightMesh.subMeshCount; i++) {
-            if (originalGameObject.GetComponent<MeshRenderer>().materials.Length > i)
-                mats[i] = originalGameObject.GetComponent<MeshRenderer>().materials[i];
-            else
-                mats[i] = originalGameObject.GetComponent<MeshRenderer>().material;
+            if (originalMats.Length > i) mats[i] = originalMats[i];
+            else mats[i] = originalMats[0];
         }
         right.GetComponent<MeshRenderer>().materials = mats;
         right.AddComponent<MeshFilter>().mesh = finishedRightMesh;
@@ -375,7 +378,7 @@ public class Cutter : MonoBehaviour
         List<Vector3> vertices = new List<Vector3>();
         List<Vector3> polygon = new List<Vector3>();
 
-        for (int i = 0; i < _addedVertices.Count; i++)
+        for (int i = 0; i < _addedVertices.Count-1; i++)
         {
             if(!vertices.Contains(_addedVertices[i]))
             {

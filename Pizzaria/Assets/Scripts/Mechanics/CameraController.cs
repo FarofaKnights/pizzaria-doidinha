@@ -36,6 +36,9 @@ public class CameraController : MonoBehaviour {
 
             if (Vector3.Distance(transform.position, targetCamPos) < 0.1f) {
                 transitioning = false;
+                if (target.GetComponent<MiniAction>() != null) {
+                    target.GetComponent<MiniAction>().CameraChegou();
+                }
             }
         } else {
             transform.position = targetCamPos;

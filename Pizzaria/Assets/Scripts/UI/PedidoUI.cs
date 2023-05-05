@@ -25,7 +25,7 @@ public class PedidoUI : MonoBehaviour {
 
         for (int i = 0; i < pedido.prato.ingredientes.Length; i++) {
             GameObject ingrediente = Instantiate(ingredientePrefab);
-            ingrediente.transform.SetParent(ingredienteHolder.transform);
+            ingrediente.transform.SetParent(ingredienteHolder.transform, false);
             ingrediente.transform.localScale = Vector3.one;
             ingrediente.transform.localPosition = Vector3.zero;
 

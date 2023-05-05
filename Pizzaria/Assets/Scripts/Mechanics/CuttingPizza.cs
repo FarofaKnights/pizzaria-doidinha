@@ -22,9 +22,12 @@ public class CuttingPizza : MiniAction
 
     public GameObject triggerEEntrar;
 
+    bool canStartCutting = false;
+
     // OnComecar é chamado quando o mini-game começa
     public override bool OnComecar() {
         if (miniActionItem != null) {
+            Debug.Log("MiniActionItem: " + miniActionItem);
             pizza = miniActionItem;
         }
 
@@ -42,7 +45,13 @@ public class CuttingPizza : MiniAction
                 child.gameObject.GetComponent<Collider>().enabled = true;
         }
 
+        canStartCutting = false;
+
         return true;
+    }
+
+    public override void CameraChegou() {
+        canStartCutting = true;
     }
 
     public void TirouPizza() {
@@ -101,6 +110,7 @@ public class CuttingPizza : MiniAction
         pizza.tag = "Untagged";
 
         pizza = pizzaParent;
+        miniActionItem = pizza;
 
         pizza.GetComponent<Pizza>().estado = EstadoPizza.Cortando;
     }
@@ -122,7 +132,7 @@ public class CuttingPizza : MiniAction
     }
 
     void Update() {
-        if (!isActionHappening) return;
+        if (!isActionHappening || !canStartCutting) return;
 
         if (Input.GetMouseButtonDown(0)) {
             selecting = true;
@@ -214,7 +224,6 @@ public class CuttingPizza : MiniAction
 
     public bool isLeft(Vector3 a, Vector3 b, Vector3 c){
         float det = (b.x - a.x)*(c.z - a.z) - (b.z - a.z)*(c.x - a.x);
-        Debug.Log(det);
         return det > 0;
     }
 
@@ -238,6 +247,10 @@ public class CuttingPizza : MiniAction
                     GameObject[] pieces = res.sides;
                     if (pieces != null && pieces[0].name == "PizzaMesh") {
                         pizzaPieces.Add(res);
+                    } else if (pieces != null) {
+                        foreach (GameObject piece in pieces) {
+                            piece.GetComponent<Collider>().enabled = false;
+                        }
                     }
                 }
             }

@@ -37,7 +37,7 @@ public class Mesa : MonoBehaviour {
             GameManager.instance.SubDinheiro(dinheiro);
             IrEmbora();
         } else {
-            float dinheiro = cliente.pedido.prato.preco * semelhanca / 100f;
+            float dinheiro = cliente.pedido.prato.preco; // * semelhanca / 100f;
             GameManager.instance.AddDinheiro(dinheiro);
             StartCoroutine(ComerPizza());
         }
@@ -54,13 +54,14 @@ public class Mesa : MonoBehaviour {
         Destroy(pizza.gameObject);
         pizza = null;
         estado = EstadoMesa.Vazia;
+        triggerPedido.GetComponent<TriggerController>().Ativar();
 
         // Cliente vai embora
         cliente.personagem.Levantar();
         cliente.personagem.SetDestino(GameManager.instance.spawnPersonagem);
         cliente = null;
      
-        GameManager.instance.GerarPedido();
+        GameManager.instance.PedidoConcluido();
     }
 
     public void Ocupar(Cliente cliente) {
@@ -83,10 +84,15 @@ public class Mesa : MonoBehaviour {
 
         cliente.personagem.FoiAtendido();
         cliente.GerarPedido();
-        GameManager.instance.pedidosNaMao.Adicionar(cliente.pedido);
+        GameManager.instance.BotarNaMao(cliente.pedido);
     }
 
     public void HabilitarTriggerPedido() {
         triggerPedido.SetActive(true);
+    }
+
+    public void SerAtendido() {
+        triggerAtendimento.SetActive(false);
+        ClienteAtendido();
     }
 }

@@ -6,33 +6,41 @@ public class TriggerE : MonoBehaviour {
     public UnityEvent onEEvent;
     bool playerNaArea = false;
 
+
+    public string sePlayerSegurando = "";
+
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player") {
             playerNaArea = true;
-            
-            if (indicador != null)
-                indicador.SetActive(true);
         }
     }
 
     void OnTriggerExit(Collider other) {
         if (other.gameObject.tag == "Player") {
             playerNaArea = false;
-
-            if (indicador != null)
-                indicador.SetActive(false);
         }
     }
 
     void Update() {
-        if (playerNaArea && Input.GetKeyDown(KeyCode.E)) {
+        if (playerNaArea && Input.GetKeyDown(KeyCode.E) && PodeMostrar()) {
             if (onEEvent != null) {
                 onEEvent.Invoke();
             }
         }
 
-        if (indicador != null && playerNaArea) {
+        if (indicador != null && PodeMostrar()) {
+            indicador.SetActive(playerNaArea);
+        } else if (indicador != null) {
+            indicador.SetActive(false);
+        }
+
+        if (indicador != null && PodeMostrar() && playerNaArea) {
             indicador.transform.LookAt(Camera.main.transform);
         }
+    }
+
+    bool PodeMostrar() {
+        if (sePlayerSegurando == "") return true;
+        return ItemInteraction.instance.heldItem != null && ItemInteraction.instance.heldItem.name == sePlayerSegurando;
     }
 }

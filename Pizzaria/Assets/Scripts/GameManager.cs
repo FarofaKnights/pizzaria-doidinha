@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
@@ -13,8 +14,9 @@ public class GameManager : MonoBehaviour {
     public GameObject personagemPrefab;
 
     public QuadroPedidos quadroPedidos;
-    public FilaPedidos pedidosNaMao = new FilaPedidos();
+    public PedidosNaMao pedidosNaMao;
     public FilaPedidos pedidos;
+
     
     public GameObject triggerIngredientes, triggerCorte;
     public GameObject[] triggerForno, triggerEntrega;
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour {
     public Text txtDinheiros;
 
     public int quantMaxClientes = 6, quantClientes = 0;
+
 
     void Start() {
         instance = this;
@@ -54,6 +57,10 @@ public class GameManager : MonoBehaviour {
     public void SubDinheiro(float valor) {
         dinheiros -= valor;
         txtDinheiros.text = dinheiros.ToString("C");
+
+        if (dinheiros <= 0) {
+            SceneManager.LoadScene("Derrota");
+        }
     }
 
     public Mesa MesaVaziaAleatoria() {
@@ -70,15 +77,15 @@ public class GameManager : MonoBehaviour {
         return mesasVazias[index];
     }
 
-    public void PassarDaMaoParaFila() {
-        Pedido pedido = pedidosNaMao.Remover();
+    public void BotarNaMao(Pedido pedido) {
+        pedidosNaMao.Adicionar(pedido);
+    }
 
-        Debug.Log(pedido);
-        
-        while (pedido != null) {
-            Debug.Log(pedido);
+    public void PassarDaMaoParaFila() {
+        Pedido[] pedidosRemovidos = pedidosNaMao.RemoverTodos();
+
+        foreach (Pedido pedido in pedidosRemovidos) {
             pedidos.Adicionar(pedido);
-            pedido = pedidosNaMao.Remover();
         }
 
         Debug.Log(pedidos);
@@ -127,6 +134,7 @@ public class GameManager : MonoBehaviour {
 
     public void PedidoConcluido() {
         quantClientes--;
+        Debug.Log("Quantidade de clientes: " + quantClientes);
 
         int quant = Random.Range(0, (quantMaxClientes - quantClientes) / 2);
         for (int i = 0; i < quant; i++) {

@@ -9,6 +9,8 @@ public class MiniAction : MonoBehaviour
 
     public virtual bool OnComecar(){ return true; }
     public virtual bool OnTerminar(){ return true; }
+
+    public virtual void CameraChegou() {}
     
     public void Comecar() {
         if (!OnComecar()) return;
